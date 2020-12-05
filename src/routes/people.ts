@@ -1,7 +1,7 @@
 import express from "express";
 import { Router, Request, Response, NextFunction } from "express";
 
-import { SomePerson, Something } from "../models/Something";
+import { SomePerson } from "../models/Something";
 
 const amazingRouter = Router();
 
