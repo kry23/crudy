@@ -50,10 +50,9 @@ amazingRouter.put("/:id", async (req: Request, res: Response) => {
 
 amazingRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
-    const person = await SomePerson.remove(req.params.id);
-    person.name = req.body.name;
-    const a1 = await person.remove();
-    res.json(a1);
+    const person = await SomePerson.remove({ id: req.params.id });
+
+    res.json(person);
   } catch (err) {
     res.send("Error" + err);
   }
