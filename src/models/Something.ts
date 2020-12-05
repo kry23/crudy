@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 export interface Something {
-  id: number;
-  name: string;
+  name: String;
+  surname: String;
 }
 const Schema = mongoose.Schema;
 

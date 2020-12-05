@@ -1,7 +1,7 @@
 import express from "express";
 import { Router, Request, Response, NextFunction } from "express";
 
-import { SomePerson } from "../models/Something";
+import { SomePerson, Something } from "../models/Something";
 
 const amazingRouter = Router();
 
@@ -27,16 +27,35 @@ amazingRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-amazingRouter.get("/:id", (req: Request, res: Response) => {
-  res.send("Hello World!" + req.params.id);
+amazingRouter.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const person = await SomePerson.findById(req.params.id);
+    res.json(person);
+  } catch (err) {
+    res.send("Error" + err);
+  }
 });
 
-amazingRouter.put("/:id", (req: Request, res: Response) => {
-  res.send("Got a PUT request at /user");
+amazingRouter.put("/:id", async (req: Request, res: Response) => {
+  try {
+    const person = await SomePerson.findById(req.params.id);
+    person.name = req.body.name;
+    const a1 = await person.save();
+    res.json(a1);
+  } catch (err) {
+    res.send("Error" + err);
+  }
 });
 
-amazingRouter.delete("/:id", (req: Request, res: Response) => {
-  res.send("Got a DELETE request at /user");
+amazingRouter.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const person = await SomePerson.findByIdAndRemove(req.params.id);
+    person.name = req.body.name;
+    const a1 = await person.remove();
+    res.json(a1);
+  } catch (err) {
+    res.send("Error" + err);
+  }
 });
 
 export { amazingRouter };
