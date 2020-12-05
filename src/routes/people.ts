@@ -13,6 +13,7 @@ amazingRouter.get("/", async (req: Request, res: Response) => {
     res.send("error" + err);
   }
 });
+
 amazingRouter.post("/", async (req: Request, res: Response) => {
   const person = new SomePerson({
     name: req.body.name,
@@ -38,7 +39,7 @@ amazingRouter.get("/:id", async (req: Request, res: Response) => {
 
 amazingRouter.put("/:id", async (req: Request, res: Response) => {
   try {
-    const person = await SomePerson.findById(req.params.id);
+    const person = await SomePerson.findByIdAndUpdate(req.params.id);
     person.name = req.body.name;
     const a1 = await person.save();
     res.json(a1);
@@ -49,7 +50,7 @@ amazingRouter.put("/:id", async (req: Request, res: Response) => {
 
 amazingRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
-    const person = await SomePerson.findByIdAndRemove(req.params.id);
+    const person = await SomePerson.remove(req.params.id);
     person.name = req.body.name;
     const a1 = await person.remove();
     res.json(a1);
